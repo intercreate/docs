@@ -97,7 +97,7 @@ wsl --install -d Ubuntu-22.04
 ```
 
 > Note: Although the Microsoft documentation claims this is done automatically, you may have to manually enable the virtual machine optional component.
-> Go to Control Panel &rarr; Programs &rarr; Programs and Features &rarr; Turn Windows Features On or Off
+> Go to Control Panel &rarr; Programs &rarr; Programs and Features &rarr; Turn Windows Features On or Off.
 > Make sure that "Virtual Machine Platform" is checked off.
 
 After completing other Windows steps, [setup your WSL2](#Setup-WSL2).
