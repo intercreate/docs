@@ -48,11 +48,17 @@ winget install --id Microsoft.WindowsTerminal -e
     ```json
     "defaults": 
     {
-        "bellStyle": "none",
         "historySize": 100000
     },
     ```
-
+- Optionally turn off the bell.
+  ```json
+  "defaults":
+  {
+      "bellStyle": "none",
+      "historySize": 100000
+  },
+  ```
 [Installation Documentation](https://github.com/microsoft/terminal#installing-and-running-windows-terminal)
 
 To avoid ambiguity, any reference to the use of a "Windows Terminal", "terminal", "CLI", "command line", etc. assumes that the terminal being used is Windows Terminal using PowerShell 5 (default) or [PowerShell 7](#powershell-7) (recommended).
