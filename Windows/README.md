@@ -261,12 +261,14 @@ Note that some of these are also available from Winget or stand alone installers
 - Create and add SSH keys to GitHub and BitBucket (as necessary):
   - [Github](https://docs.github.com/en/authentication/connecting-to-github-with-ssh/adding-a-new-ssh-key-to-your-github-account?platform=linux)
   - [BitBucket](https://support.atlassian.com/bitbucket-cloud/docs/set-up-personal-ssh-keys-on-linux/)
-- [Install Segger JLink](https://www.segger.com/downloads/jlink/).  Visit page to find the latest version and update the commands below.
+- [Install Segger JLink](https://www.segger.com/downloads/jlink/).  Visit the page and download the correct package.
   ```
   cd ~
-  wget https://www.segger.com/downloads/jlink/JLink_Linux_V788i_x86_64.deb
-  sudo dpkg -i JLink_Linux_V788i_x86_64.deb
-  rm JLink_Linux_V788i_x86_64.deb
+  cp mnt/c/Users/<your_user_name_>/Downloads/<name_of_file> ~/
+  sudo dpkg -i <name_of_file>
+  # The previous command will likely result in dependency issues.
+  sudo apt-get -f install
+  rm <name_of_file>
   ```
 - Test USB pass through using the USBIPD CLI or wsl-usb-gui
 - Install Google Chrome:
