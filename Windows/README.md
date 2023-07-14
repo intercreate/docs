@@ -41,7 +41,7 @@ winget install --id Microsoft.WindowsTerminal -e
   ```powershell
   Set-ExecutionPolicy RemoteSigned
   ```
-- In Windows Terminal, increase your history size
+- In Windows Terminal, increase your history size.
   - Press `Ctrl Shift ,` to open your Windows Terminal [settings.json](https://learn.microsoft.com/en-us/windows/terminal/install#settings-json-file)
   - Under the top level field `"profiles"`, find the `"defaults"` field or create it.
   - Edit the `"defaults"` object to have `"historySize": 100000` (though apparently 32767 is max), for example:
