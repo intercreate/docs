@@ -156,6 +156,8 @@ winget install usbipd
 
 Strongly recommended to add this GUI for simplicity.
 
+> Note: Windows will likely complain that the software is unsigned.
+
 [wsl-usb-gui Releases](https://gitlab.com/alelec/wsl-usb-gui/-/releases)
 
 ---
