@@ -51,7 +51,7 @@ winget install --id Microsoft.WindowsTerminal -e
         "historySize": 100000
     },
     ```
-- Optionally turn off the bell.
+  - Optionally turn off the bell.
     ```json
     "defaults":
     {
