@@ -96,6 +96,10 @@ Open PowerShell (or Windows Terminal) in administrator mode by right-clicking an
 wsl --install -d Ubuntu-22.04
 ```
 
+> Note: Although the Microsoft documentation claims this is done automatically, you may have to manually enable the virtual machine optional component.
+> Go to Control Panel &larr; Programs &larr; Programs and Features &larr; Turn Windows Features On or Off
+> Make sure that "Virtual Machine Platform" is checked off.
+
 After completing other Windows steps, [setup your WSL2](#Setup-WSL2).
 
 [Installation Documentation](https://learn.microsoft.com/en-us/windows/wsl/install)
