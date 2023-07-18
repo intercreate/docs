@@ -100,7 +100,7 @@ wsl --install -d Ubuntu-22.04
 >
 > Go to Control Panel &rarr; Programs &rarr; Programs and Features &rarr; Turn Windows Features On or Off.
 >
-> Make sure that "Virtual Machine Platform" is checked off.
+> Make sure that "Virtual Machine Platform" is checked.
 
 After completing other Windows steps, [setup your WSL2](#Setup-WSL2).
 
