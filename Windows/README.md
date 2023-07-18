@@ -261,7 +261,9 @@ Note that some of these are also available from Winget or stand alone installers
 - Create and add SSH keys to GitHub and BitBucket (as necessary):
   - [Github](https://docs.github.com/en/authentication/connecting-to-github-with-ssh/adding-a-new-ssh-key-to-your-github-account?platform=linux)
   - [BitBucket](https://support.atlassian.com/bitbucket-cloud/docs/set-up-personal-ssh-keys-on-linux/)
-- [Install Segger JLink](https://www.segger.com/downloads/jlink/).  Visit the page and download the correct package.
+- [Install Segger JLink](https://www.segger.com/downloads/jlink/).  
+  - In Windows, visit the page and download the correct package.
+  - In WSL, enter the following commands.
   ```
   cd ~
   cp mnt/c/Users/<your_user_name_>/Downloads/<name_of_file> ~/
