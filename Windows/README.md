@@ -48,11 +48,17 @@ winget install --id Microsoft.WindowsTerminal -e
     ```json
     "defaults": 
     {
+        "historySize": 100000
+    },
+    ```
+  - Optionally turn off the bell.
+    ```json
+    "defaults":
+    {
         "bellStyle": "none",
         "historySize": 100000
     },
     ```
-
 [Installation Documentation](https://github.com/microsoft/terminal#installing-and-running-windows-terminal)
 
 To avoid ambiguity, any reference to the use of a "Windows Terminal", "terminal", "CLI", "command line", etc. assumes that the terminal being used is Windows Terminal using PowerShell 5 (default) or [PowerShell 7](#powershell-7) (recommended).
@@ -89,6 +95,12 @@ Open PowerShell (or Windows Terminal) in administrator mode by right-clicking an
 ```powershell
 wsl --install -d Ubuntu-22.04
 ```
+
+> Note: Although the Microsoft documentation claims this is done automatically, you may have to manually enable the virtual machine optional component.
+>
+> Go to Control Panel &rarr; Programs &rarr; Programs and Features &rarr; Turn Windows Features On or Off.
+>
+> Make sure that "Virtual Machine Platform" is checked.
 
 After completing other Windows steps, [setup your WSL2](#Setup-WSL2).
 
@@ -145,6 +157,8 @@ winget install usbipd
 #### wsl-usb-gui
 
 Strongly recommended to add this GUI for simplicity.
+
+> Note: Windows will likely complain that the software is unsigned.
 
 [wsl-usb-gui Releases](https://gitlab.com/alelec/wsl-usb-gui/-/releases)
 
@@ -247,12 +261,16 @@ Note that some of these are also available from Winget or stand alone installers
 - Create and add SSH keys to GitHub and BitBucket (as necessary):
   - [Github](https://docs.github.com/en/authentication/connecting-to-github-with-ssh/adding-a-new-ssh-key-to-your-github-account?platform=linux)
   - [BitBucket](https://support.atlassian.com/bitbucket-cloud/docs/set-up-personal-ssh-keys-on-linux/)
-- [Install Segger JLink](https://www.segger.com/downloads/jlink/).  Visit page to find the latest version and update the commands below.
+- [Install Segger JLink](https://www.segger.com/downloads/jlink/)
+  - From Windows - visit the link and download the correct package.
+  - From WSL - enter the following commands.
   ```
   cd ~
-  wget https://www.segger.com/downloads/jlink/JLink_Linux_V788i_x86_64.deb
-  sudo dpkg -i JLink_Linux_V788i_x86_64.deb
-  rm JLink_Linux_V788i_x86_64.deb
+  cp mnt/c/Users/<your_user_name_>/Downloads/<name_of_file> ~/
+  sudo dpkg -i <name_of_file>
+  # The previous command will likely result in dependency issues.
+  sudo apt-get -f install
+  rm <name_of_file>
   ```
 - Test USB pass through using the USBIPD CLI or wsl-usb-gui
 - Install Google Chrome:
