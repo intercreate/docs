@@ -96,7 +96,7 @@ Open PowerShell (or Windows Terminal) in administrator mode by right-clicking an
 wsl --install -d Ubuntu-22.04
 ```
 
-> Note: Although the Microsoft documentation claims this is done automatically, you may have to manually enable the virtual machine optional component.
+> Note: Although the Microsoft documentation claims this is done automatically, you may have to manually enable the virtual machine optional component. In this case you may see the error message "WslRegisterDistribution failed with error: 0x80370114". It can be fixed by enabling the Virtual Machine Platform.
 >
 > Go to Control Panel &rarr; Programs &rarr; Programs and Features &rarr; Turn Windows Features On or Off.
 >
