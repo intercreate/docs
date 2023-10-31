@@ -314,3 +314,8 @@ Note that some of these are also available from Winget or stand alone installers
 - Author: Alden Haase <alden@intercreate.io>
 - Improve clarity
 - Disambiguate which system packages should be installed to (Windows vs WSL2)
+
+## 2023-10-06
+
+- Author: Michael Brust  <mike@intercreate.io>
+- Add error # for clarity
