@@ -78,34 +78,13 @@ wsl --install -d Ubuntu-22.04
 >
 > Make sure that "Virtual Machine Platform" is checked.
 
-After completing other Windows steps, [setup your WSL2](#Setup-WSL2).
-
 [Installation Documentation](https://learn.microsoft.com/en-us/windows/wsl/install)
 
 #### About Distros
 
 J.P. says: "of the available options, I recommend Ubuntu 22.04 LTS"
 
-See `wsl --list --online`:
-
-```
-The following is a list of valid distributions that can be installed.
-Install using 'wsl.exe --install <Distro>'.
-
-NAME                                   FRIENDLY NAME
-Ubuntu                                 Ubuntu
-Debian                                 Debian GNU/Linux
-kali-linux                             Kali Linux Rolling
-Ubuntu-18.04                           Ubuntu 18.04 LTS
-Ubuntu-20.04                           Ubuntu 20.04 LTS
-Ubuntu-22.04                           Ubuntu 22.04 LTS
-OracleLinux_7_9                        Oracle Linux 7.9
-OracleLinux_8_7                        Oracle Linux 8.7
-OracleLinux_9_1                        Oracle Linux 9.1
-SUSE-Linux-Enterprise-Server-15-SP4    SUSE Linux Enterprise Server 15 SP4
-openSUSE-Leap-15.4                     openSUSE Leap 15.4
-openSUSE-Tumbleweed                    openSUSE Tumbleweed
-```
+See `wsl --list --online` for more info.
 
 #### About Hardware Configuration
 
