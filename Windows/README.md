@@ -299,3 +299,18 @@ Note that some of these are also available from Winget or stand alone installers
 - Author: J.P. Hutchins <jp@intercreate.io>
 - Initial outline and draft
 - Add instructions to get clang-format 17
+
+## 2023-07-14
+
+- Author: Alden Haase <alden@intercreate.io>
+- Formatting corrections
+- Correct JLink install instructions
+- Add note about enabling virtual machine platform in Windows
+- Add note about Windows warning for unsigned software
+- Add bellStyle config
+
+## 2023-07-17
+
+- Author: Alden Haase <alden@intercreate.io>
+- Improve clarity
+- Disambiguate which system packages should be installed to (Windows vs WSL2)
