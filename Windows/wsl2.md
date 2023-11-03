@@ -161,6 +161,7 @@ Or installer: https://code.visualstudio.com/download#
   ```
   wget https://apt.kitware.com/kitware-archive.sh
   sudo bash kitware-archive.sh
+  sudo apt update && sudo apt upgrade -y
   ```
 - Install the USB/IP client tools; [reference](https://github.com/dorssel/usbipd-win/wiki/WSL-support#usbip-client-tools)
   ```
@@ -221,13 +222,13 @@ Or installer: https://code.visualstudio.com/download#
 
 ## 2023-06-25
  
-- Author: J.P. Hutchins <jp@intercreate.io>
+- Author: J.P. Hutchins
 - Initial outline and draft
 - Add instructions to get clang-format 17
 
 ## 2023-07-14
 
-- Author: Alden Haase <alden@intercreate.io>
+- Author: Alden Haase
 - Formatting corrections
 - Correct JLink install instructions
 - Add note about enabling virtual machine platform in Windows
@@ -236,16 +237,22 @@ Or installer: https://code.visualstudio.com/download#
 
 ## 2023-07-17
 
-- Author: Alden Haase <alden@intercreate.io>
+- Author: Alden Haase
 - Improve clarity
 - Disambiguate which system packages should be installed to (Windows vs WSL2)
 
 ## 2023-10-06
 
-- Author: Michael Brust  <mike@intercreate.io>
+- Author: Michael Brust
 - Add error # for clarity
 
 ## 2023-10-31 🎃
 
-- Author: J.P. Hutchins <jp@intercreate.io>
+- Author: J.P. Hutchins
 - Split the native Windows and WSL2 documents
+
+## 2023-11-02
+
+- Author: J.P. Hutchins
+- Update and upgrade after running the Kitware script
+- Remove email addresses
