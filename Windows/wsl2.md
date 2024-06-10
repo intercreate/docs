@@ -187,12 +187,16 @@ Or installer: https://code.visualstudio.com/download#
 
 ## Install Segger J-Link Software
 
-- From Windows - [download the latest Linux 64-bit DEB installer](https://www.segger.com/downloads/jlink/).
-- From WSL - enter the following commands to copy the installer to WSL and install:
+- From WSL - launch Firefox:
+  ```
+  firefox
+  ```
+- Using Firefox, [download the latest Linux 64-bit DEB installer](https://www.segger.com/downloads/jlink/).
+- Enter the following commands to copy the installer to root directory and install:
   ```
   cd ~
-  cp mnt/c/Users/<your_windows_user_name_>/Downloads/<name_of_file> ~/
-  sudo dpkg -i <name_of_file>
+  cp ~/snap/firefox/common/Downloads/<name_of_file> ~/
+  sudo apt install ./<name_of_file>
   # The previous command will likely result in dependency issues.
   sudo apt-get -f install
   rm <name_of_file>
@@ -210,7 +214,7 @@ Or installer: https://code.visualstudio.com/download#
   ```
   cd ~
   wget https://dl.google.com/linux/direct/google-chrome-stable_current_amd64.deb
-  sudo dpkg -i google-chrome-stable_current_amd64.deb
+  sudo apt install ./google-chrome-stable_current_amd64.deb
   rm google-chrome-stable_current_amd64.deb
   ```
   - Test:
