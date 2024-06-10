@@ -97,26 +97,17 @@ Further reading:
 
 ---
 
-### USBIPD
+### USBIPD Installation using the WSL USB GUI
 
-USB IP Device allows pass through of USB devices (serial, debugger, etc.) from Windows to WSL2.
-
-```powershell
-winget install usbipd
-```
-
-[Source and docs](https://github.com/dorssel/usbipd-win)
-
-[Microsoft write-up](https://learn.microsoft.com/en-us/windows/wsl/connect-usb)
-
-#### wsl-usb-gui
-
-Strongly recommended to add this GUI for simplicity.
+USB IP Device allows pass through of USB devices (serial, debugger, etc.) from Windows to WSL2. Install the WSL USB GUI [most current release](https://gitlab.com/alelec/wsl-usb-gui/-/releases).
 
 > Note: Windows will likely complain that the software is unsigned.
 
-[wsl-usb-gui Releases](https://gitlab.com/alelec/wsl-usb-gui/-/releases)
+Further documentation for USB forwarding setup without using the GUI found below:
 
+- [Source and docs](https://github.com/dorssel/usbipd-win)
+
+- [Microsoft write-up](https://learn.microsoft.com/en-us/windows/wsl/connect-usb)
 ---
 
 ## Recommended Tools
