@@ -163,12 +163,7 @@ Or installer: https://code.visualstudio.com/download#
   sudo bash kitware-archive.sh
   sudo apt update && sudo apt upgrade -y
   ```
-- Install the USB/IP client tools; [reference](https://github.com/dorssel/usbipd-win/wiki/WSL-support#usbip-client-tools)
-  ```
-  sudo apt install linux-tools-generic hwdata
-  sudo update-alternatives --install /usr/local/bin/usbip usbip `ls /usr/lib/linux-tools/*/usbip | tail -n1` 20
-  ```
-  - Test USB pass through using the USBIPD CLI or wsl-usb-gui
+- Additional information on USB/IP client tools can be found [here](https://github.com/dorssel/usbipd-win/wiki/WSL-support#usbip-client-tools).
 
 ---
 
