@@ -18,7 +18,7 @@ This section should be completed in order.
 
 ### Windows 11
 
-While many of these same techniques are possible in Windows 10, WSL2 in Windows 10 is no longer receiving important feature updates.
+While many of these same techniques are possible in Windows 10, WSL2 in Windows 10 is no longer receiving important feature updates. It is recommended to run Windows Update until up to date.
 
 [Installation Documentation](https://support.microsoft.com/en-us/windows/ways-to-install-windows-11-e0edbbfb-cfc5-4011-868b-2ce77ac7c70e)
 
