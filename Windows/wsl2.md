@@ -62,14 +62,14 @@ winget install --id Microsoft.WindowsTerminal -e
 
 To avoid ambiguity, any reference to the use of a "Windows Terminal", "terminal", "CLI", "command line", etc. assumes that the terminal being used is Windows Terminal using PowerShell 5 (default) or PowerShell 7 (recommended).
 
-### Ubuntu 22.04 LTS on Windows Subsystem for Linux 2 (WSL2)
+### Ubuntu 24.04 LTS on Windows Subsystem for Linux 2 (WSL2)
 
 These days, WSL2 is the default instead of WSL1.  If you are on a fresh install, you can assume that WSL2 is being used.  If you are worried that you might be on WSL1, then [upgrade version from WSL 1 to WSL 2](https://learn.microsoft.com/en-us/windows/wsl/install#upgrade-version-from-wsl-1-to-wsl-2).
 
 Open PowerShell (or Windows Terminal) in administrator mode by right-clicking and selecting "Run as administrator".  Enter the following wsl install command and then restart your machine.
 
 ```powershell
-wsl --install -d Ubuntu-22.04
+wsl --install -d Ubuntu-24.04 --web-download
 ```
 
 > Note: Although the Microsoft documentation claims this is done automatically, you may have to manually enable the virtual machine optional component. In this case you may see the error message "WslRegisterDistribution failed with error: 0x80370114". It can be fixed by enabling the Virtual Machine Platform.
@@ -82,7 +82,7 @@ wsl --install -d Ubuntu-22.04
 
 #### About Distros
 
-J.P. says: "of the available options, I recommend Ubuntu 22.04 LTS"
+J.P. says: "of the available options, I recommend Ubuntu 24.04 LTS"
 
 See `wsl --list --online` for more info.
 
@@ -97,26 +97,16 @@ Further reading:
 
 ---
 
-### USBIPD
+### USBIPD Installation using the WSL USB GUI
 
-USB IP Device allows pass through of USB devices (serial, debugger, etc.) from Windows to WSL2.
-
-```powershell
-winget install usbipd
-```
-
-[Source and docs](https://github.com/dorssel/usbipd-win)
-
-[Microsoft write-up](https://learn.microsoft.com/en-us/windows/wsl/connect-usb)
-
-#### wsl-usb-gui
-
-Strongly recommended to add this GUI for simplicity.
+USB IP Device allows pass through of USB devices (serial, debugger, etc.) from Windows to WSL2. Install the WSL USB GUI [most current release](https://gitlab.com/alelec/wsl-usb-gui/-/releases).
 
 > Note: Windows will likely complain that the software is unsigned.
 
-[wsl-usb-gui Releases](https://gitlab.com/alelec/wsl-usb-gui/-/releases)
+Further documentation for USB forwarding setup without using the GUI found below:
 
+- [Source and docs](https://github.com/dorssel/usbipd-win)
+- [Microsoft write-up](https://learn.microsoft.com/en-us/windows/wsl/connect-usb)
 ---
 
 ## Recommended Tools
@@ -157,7 +147,7 @@ Or installer: https://code.visualstudio.com/download#
     ```
     firefox
     ```
-- Get a newer CMake:
+- Skip this step if running Ubuntu 24.04. If running Ubuntu 22.04 or 20.04, get a newer CMake:
   ```
   wget https://apt.kitware.com/kitware-archive.sh
   sudo bash kitware-archive.sh
