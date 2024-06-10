@@ -255,3 +255,13 @@ Or installer: https://code.visualstudio.com/download#
 - Author: J.P. Hutchins
 - Update and upgrade after running the Kitware script
 - Remove email addresses
+
+## 2024-06-10
+
+- Author: Ishani Raha
+- Modify JLink install instructions to download from WSL2 Firefox
+- Remove redundant USB/IP install instructions
+- Specify user Windows updates
+- Suggest Ubuntu 24.04 as default download
+- Update CMake version update instruction to remove redundancy
+- Add explicit instructions for WSL USB GUI download
