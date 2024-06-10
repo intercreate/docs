@@ -106,7 +106,6 @@ USB IP Device allows pass through of USB devices (serial, debugger, etc.) from W
 Further documentation for USB forwarding setup without using the GUI found below:
 
 - [Source and docs](https://github.com/dorssel/usbipd-win)
-
 - [Microsoft write-up](https://learn.microsoft.com/en-us/windows/wsl/connect-usb)
 ---
 
