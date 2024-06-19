@@ -112,7 +112,7 @@ Further documentation for USB forwarding setup without using the GUI found below
 
 > While it is possible to forward all USB devices to WSL2, it does not
 > necessarily mean that they will "just work".  In the firmware development
-> domain, a primary example of this issue is the forwarding BLE devices to 
+> domain, an example of this issue is found when forwarding BLE adapters to 
 > WSL2.  The default WSL2 kernel is not compiled with Bluetooth support, so the
 > USBIPD community maintains a thread explaining how to compile your own WSL2
 > kernel (it's fast!) and get your Bluetooth device working.
@@ -144,7 +144,10 @@ Or installer: https://code.visualstudio.com/download#
 
 ## Get Common Dependencies
 
-- Update packages: `sudo apt update && sudo apt upgrade -y`
+- Update packages: 
+  ```
+  sudo apt update && sudo apt upgrade -y
+  ```
 - Install suggested packages:
   ```
   sudo apt install --no-install-recommends git cmake ninja-build gperf \
