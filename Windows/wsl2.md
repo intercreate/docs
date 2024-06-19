@@ -42,16 +42,10 @@ winget install --id Microsoft.WindowsTerminal -e
 
 ### Configuration
 
-- Pin Windows Terminal to the taskbar.
+- Pin Windows Terminal to the taskbar by right-clicking on its icon in the Start
+  Menu and selecting "Pin to taskbar".
   - Tip: your shells can be quickly accessed by right-clicking on the Windows
-    Terminal icon and selecting your shell from the list
-- Open Terminal as administrator and [allow local PS scripts to run](https://learn.microsoft.com/en-us/powershell/module/microsoft.powershell.core/about/about_execution_policies?view=powershell-7.3#remotesigned):
-  
-  ![Open terminal as Administrator Screenshot](open-terminal-as-admin.png)
-
-  ```powershell
-  Set-ExecutionPolicy RemoteSigned
-  ```
+    Terminal icon and selecting your shell from the list.
 
 > You may like to adjust various settings in Windows Terminal, such as
 > increasing the line [history size](https://learn.microsoft.com/en-us/windows/terminal/customize-settings/profile-advanced#history-size),
