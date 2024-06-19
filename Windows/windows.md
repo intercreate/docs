@@ -35,7 +35,9 @@ winget install --id Microsoft.WindowsTerminal -e
 #### Configuration
 
 - Pin Terminal to the taskbar.
-- Open PowerShell as administrator and [allow local PS scripts to run](https://learn.microsoft.com/en-us/powershell/module/microsoft.powershell.core/about/about_execution_policies?view=powershell-7.3#remotesigned):
+- Open Terminal as administrator and [allow local PS scripts to run](https://learn.microsoft.com/en-us/powershell/module/microsoft.powershell.core/about/about_execution_policies?view=powershell-7.3#remotesigned):
+  
+  ![Open terminal as Administrator Screenshot](open-terminal-as-admin.png)
 
   ```powershell
   Set-ExecutionPolicy RemoteSigned
