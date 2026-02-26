@@ -156,6 +156,41 @@ Or installer: https://code.visualstudio.com/download#
     > Firefox is running in WSL2!
 - Additional information on USB/IP client tools can be found [here](https://github.com/dorssel/usbipd-win/wiki/WSL-support#usbip-client-tools).
 
+## Setup and test the USB system
+
+- Install this package :
+```bash
+sudo apt install usbutils
+```
+- Then try :
+```bash
+lsusb
+```
+The desired output is :
+```bash
+Bus 001 Device 001: ID 1d6b:0002 Linux Foundation 2.0 root hub
+Bus 002 Device 001: ID 1d6b:0003 Linux Foundation 3.0 root hub
+```
+
+### If you don't get any ouput
+
+In newer WSL versions, the Virtual Host Controller Interface Host Controller Driver (VHCI HCD) module isn't monolithic anymore.
+VHCI HCD is used by USB IP Device to forward USB devices from Windows to WSL.
+
+Execute this command to load the module :
+```bash
+sudo modprobe vhci-hcd
+```
+
+To ensure this step is good, try the following :
+```bash
+lsusb
+```
+It should NOT be empty anymore.
+
+Reference [THREAD](https://github.com/dorssel/usbipd-win/issues/995).
+
+
 ## Setup Git
 
 - Set your global git config (same as in Windows):
@@ -225,24 +260,6 @@ Or installer: https://code.visualstudio.com/download#
   ```
   google-chrome
   ```
-
-## IMPORTANT : Load VHCI HCD module
-
-In newer WSL versions, the Virtual Host Controller Interface Host Controller Driver (VHCI HCD) module isn't monolitic anymore.
-VHCI HCD is used by USB IP Device to forward USB devices from Windows to WSL.
-
-Execute this command to load the module :
-```powershell
-sudo modprobe vhci-hcd
-```
-
-To ensure this step is good, try the following :
-```powershell
-lsusb
-```
-It should NOT be empty
-
-Reference [THREAD](https://github.com/dorssel/usbipd-win/issues/995).
 
 # Revision History
 
