@@ -174,7 +174,7 @@ Bus 002 Device 001: ID 1d6b:0003 Linux Foundation 3.0 root hub
 
 ### If you don't get any ouput
 
-In newer WSL versions, the Virtual Host Controller Interface Host Controller Driver (VHCI HCD) module isn't monolithic anymore.
+In some WSL versions, the Virtual Host Controller Interface Host Controller Driver (VHCI HCD) module isn't monolithic anymore.
 VHCI HCD is used by USB IP Device to forward USB devices from Windows to WSL.
 
 Execute this command to load the module :
