@@ -226,6 +226,24 @@ Or installer: https://code.visualstudio.com/download#
   google-chrome
   ```
 
+## IMPORTANT : Load VHCI HCD module
+
+In newer WSL versions, the Virtual Host Controller Interface Host Controller Driver (VHCI HCD) module isn't monolitic anymore.
+VHCI HCD is used by USB IP Device to forward USB devices from Windows to WSL.
+
+Execute this command to load the module :
+```powershell
+sudo modprobe vhci-hcd
+```
+
+To ensure this step is good, try the following :
+```powershell
+lsusb
+```
+It should NOT be empty
+
+Reference [THREAD](https://github.com/dorssel/usbipd-win/issues/995).
+
 # Revision History
 
 ## 2023-06-25
@@ -284,3 +302,8 @@ Or installer: https://code.visualstudio.com/download#
 - Reduce line length to 80 where possible
 - git config init branch to main
 - Add note about Bluetooth in WSL2
+
+## 2026-02-26
+ 
+- Author: Gabriel Tetar
+- Added load VHCI HCD module step to support WSL 6.6+
