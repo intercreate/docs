@@ -172,18 +172,27 @@ Bus 001 Device 001: ID 1d6b:0002 Linux Foundation 2.0 root hub
 Bus 002 Device 001: ID 1d6b:0003 Linux Foundation 3.0 root hub
 ```
 
-### If you don't get any ouput
+### If you don't get any output
 
 In some WSL versions, the Virtual Host Controller Interface Host Controller Driver (VHCI HCD) module isn't monolithic.
 VHCI HCD is used by USB IP Device to forward USB devices from Windows to WSL.
 
-Execute this command to open WSL configuration :
+Execute this command to write a modules-load.d configuration :
 ```bash
-sudo nano /etc/wsl.conf
+sudo nano /etc/modules-load.d/usbip.conf
 ```
-Under `[boot]` add this line :
+Add this line :
 ```bash
-command = modprobe vhci-hcd
+vhci-hcd
+```
+Ensure systemd is enabled in WSL configuration :
+```bash
+cat /etc/wsl.conf
+```
+You should see :
+```
+[boot]
+systemd=true
 ```
 Then restart WSL from PowerShell:
 ```powershell
@@ -332,3 +341,9 @@ Reference [THREAD](https://github.com/dorssel/usbipd-win/issues/995).
  
 - Author: Gabriel Tetar
 - Added load VHCI HCD module step to support WSL 6.6+
+
+## 2026-06-18
+
+- Author: Elias Calzado Carvajal
+- Update vhci-hcd kernel module loading method to use modules-load.d
+- Fix "ouput" typo
