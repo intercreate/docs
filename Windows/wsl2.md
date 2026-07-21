@@ -1,4 +1,4 @@
-Copyright (c) 2023-2024 Intercreate, Inc. 
+Copyright (c) 2023-2026 Intercreate, Inc. 
 
 # Summary
 
@@ -55,7 +55,7 @@ winget install --id Microsoft.WindowsTerminal -e
 
 [Installation Documentation](https://github.com/microsoft/terminal#installing-and-running-windows-terminal)
 
-## Ubuntu 24.04 LTS on Windows Subsystem for Linux (WSL2)
+## Ubuntu 26.04 LTS on Windows Subsystem for Linux (WSL2)
 
 > These days, WSL2 is the default instead of WSL1.  If you are on a fresh
 > install, you can assume that WSL2 is being used.  If you are worried that you
@@ -64,7 +64,7 @@ winget install --id Microsoft.WindowsTerminal -e
 Open PowerShell as Administrator from Windows Terminal or from PowerShell.
 
 ```powershell
-wsl --install -d Ubuntu-24.04 --web-download
+wsl --install -d Ubuntu-26.04 --web-download
 ```
 
 > Note: Although the Microsoft documentation claims this is done automatically,
@@ -85,7 +85,7 @@ See `wsl --list --online` for more info.
 ### About Hardware Configuration
 
 You will need to enable virtualization support in your system BIOS if it is not
-already enabled.  On Intel this is called VT-d and an AMD it is called AMD-V.
+already enabled.  On Intel this is called VT-x and an AMD it is called AMD-V.
 See your laptop/motherboard manufacturer's documentation.
 
 Further reading:
@@ -105,13 +105,11 @@ Further documentation for USB forwarding setup without using the GUI found below
 - [Microsoft write-up](https://learn.microsoft.com/en-us/windows/wsl/connect-usb)
 
 > While it is possible to forward all USB devices to WSL2, it does not
-> necessarily mean that they will "just work".  In the firmware development
-> domain, an example of this issue is found when forwarding BLE adapters to 
-> WSL2.  The default WSL2 kernel is not compiled with Bluetooth support, so the
-> USBIPD community maintains a thread explaining how to compile your own WSL2
-> kernel (it's fast!) and get your Bluetooth device working.
+> necessarily mean that they will "just work". At the time of writing, the default
+> WSL2 kernel does not ship with support for MediaTek Bluetooth dongles. We distribute
+> a patched kernel image with the support for more Bluetooth dongles on our [fork](https://github.com/intercreate/WSL2-Linux-Kernel).
 >
-> The [THREAD](https://github.com/dorssel/usbipd-win/discussions/310).
+> An issue tracking this gap in coverage is open at [microsoft/WSL#41107](https://github.com/microsoft/WSL/issues/41107)
 
 ## VSCode
 
@@ -127,7 +125,7 @@ Or installer: https://code.visualstudio.com/download#
 
 ## Create a User
 
-- Open WSL2 by right-clicking on Terminal and selecting Ubuntu 24.04 LTS
+- Open WSL2 by right-clicking on Terminal and selecting Ubuntu 26.04
   - Or, in an already open Terminal, from the top bar, dropdown V to display
     shells
   - You can set defaults from the Terminal Settings
@@ -139,18 +137,22 @@ Or installer: https://code.visualstudio.com/download#
 ## Get Common Dependencies
 
 - Update packages: 
-  ```
+  ```bash
   sudo apt update && sudo apt upgrade -y
   ```
 - Install suggested packages:
-  ```
+  ```bash
   sudo apt install --no-install-recommends git cmake ninja-build gperf \
   ccache device-tree-compiler wget build-essential tio python3-dev \
   python3-pip python3-setuptools python3-tk python3-wheel xz-utils file \
-  make gcc gcc-multilib g++-multilib libsdl2-dev libmagic1 firefox clang-format
+  make gcc gcc-multilib g++-multilib libsdl2-dev libmagic1 clang-format
   ```
-  - Test WSL2 GUI:
-    ```
+- Install firefox:
+  ```bash
+  sudo snap install firefox
+  ```
+  - Test WSL2 GUI. Re-open the terminal and run:
+    ```bash
     firefox
     ```
     > Firefox is running in WSL2!
@@ -190,7 +192,7 @@ Ensure systemd is enabled in WSL configuration :
 cat /etc/wsl.conf
 ```
 You should see :
-```
+```ini
 [boot]
 systemd=true
 ```
@@ -207,11 +209,159 @@ It should NOT be empty anymore.
 
 Reference [THREAD](https://github.com/dorssel/usbipd-win/issues/995).
 
+## Setup USB drive auto-mounting
+
+usbipd forwards USB drives as internal drives in WSL2. For `udiskie` to automatically mount them, we need to modify the configuration.
+
+- First, install `udisks2`:
+  ```bash
+  sudo apt install udisks2
+  ```
+- Create a rule to allow auto-mounting internal drives:
+  ```bash
+  sudo nano /etc/polkit-1/rules.d/99-udisks2.rules
+  ```
+  ```js
+  polkit.addRule(function(action, subject) {
+      if (action.id.indexOf("org.freedesktop.udisks2.") === 0 &&
+          subject.isInGroup("plugdev")) {
+          return polkit.Result.YES;
+      }
+  });
+  ```
+- Add current user to `plugdev` group:
+  ```bash
+  sudo usermod -aG plugdev $USER
+  ```
+- Restart `udisks2`:
+  ```bash
+  sudo systemctl restart udisks2
+  ```
+
+Now we can install `udiskie` and enable it.
+
+- Install using apt:
+  ```bash
+  sudo apt install udiskie
+  ```
+- Make the systemd unit:
+  ```bash
+  mkdir -p ~/.config/systemd/user && nano ~/.config/systemd/user/udiskie.service
+  ```
+  ```ini
+  [Unit]
+  Description=udiskie automounter
+
+  [Service]
+  ExecStart=/usr/bin/udiskie --no-notify
+  Restart=on-failure
+
+  [Install]
+  WantedBy=default.target
+  ```
+- Enable and start the unit:
+  ```bash
+  systemctl --user enable udiskie && systemctl --user start udiskie
+  ```
+
+## Setup Bluetooth
+
+If Windows is using Bluetooth, usbipd will fail to attach it to WSL. If needed, disable Bluetooth on Windows
+before continuing.
+
+- In the Windows Terminal:
+  ```powershell
+  usbipd list
+  usbipd bind --busid <ble-device-id>
+  usbipd attach --wsl --busid <ble-device-id>
+  ```
+- Back in WSL:
+  ```bash
+  sudo apt install bluez
+  bluetoothctl list
+  ```
+If the device was attached properly you should see its information printed.
+
+### Test Bluetooth
+
+- In the WSL terminal:
+  ```bash
+  bluetoothctl
+  [bluetoothctl]# power on
+  [bluetoothctl]# scan on
+  ```
+You should see information about nearby Bluetooth devices.
+
+### Troubleshooting Bluetooth
+
+At the time of writing, some Bluetooth dongles are not supported by the WSL2 kernel. This is likely the result
+of either (1) their kernel modules not being included or (2) the kernel failing to load the correct firmware.
+
+In our release for the WSL2 kernel, [linux-msft-wsl-6.18.35.2-ic](https://github.com/intercreate/WSL2-Linux-Kernel/releases/tag/linux-msft-wsl-6.18.35.2-ic), we enable the missing modules for MediaTek dongles.
+
+It's still necessary to use a workaround to allow the WSL2 kernel to load firmware from within the distro's `/lib/firmware`.
+
+Begin by downloading the two files whose names begin with `linux-msft-wsl-6.18.35.2-ic` in our release and
+place them in `C:\Users\<your-username>\.wsl-kernel`.
+- The contents of the folder should look like:
+  ```
+  .wsl-kernel\
+  ├── linux-msft-wsl-6.18.35.2-ic
+  └── linux-msft-wsl-6.18.35.2-ic.vhdx
+  ```
+
+- Next open `C:\Users\<your-username>\.wslconfig` and enter the following:
+  ```ini
+  [wsl2]
+  kernel=C:\\Users\\<your-username>\\.wsl-kernel\\linux-msft-wsl-6.18.35.2-ic
+  kernelModules=C:\\Users\\<your-username>\\.wsl-kernel\\linux-msft-wsl-6.18.35.2-ic.vhdx
+  ```
+
+Then, to fix the firmware loading issue we need to mount the firmware somewhere the kernel can see it, and
+tell it where it is.
+- Install it if you haven't already:
+  ```bash
+  sudo apt install linux-firmware
+  ```
+
+- Make it available automatically:
+  ```bash
+  sudo nano /etc/systemd/system/mnt-wsl-firmware.mount
+  ```
+  ```ini
+  [Unit]
+  Description=Bind mount /lib/firmware to /mnt/wsl/firmware
+
+  [Mount]
+  What=/lib/firmware
+  Where=/mnt/wsl/firmware
+  Type=none
+  Options=bind
+
+  [Install]
+  WantedBy=multi-user.target
+  ```
+  ```bash
+  sudo systemctl daemon-reload && sudo systemctl enable --now mnt-wsl-firmware.mount
+  ```
+
+- Tell the kernel where to look for firmware:
+  ```bash
+  sudo nano /etc/tmpfiles.d/firmware-path.conf
+  ```
+  ```
+  w /sys/module/firmware_class/parameters/path - - - - /mnt/wsl/firmware
+  ```
+
+- Apply it:
+  ```bash
+  sudo systemd-tmpfiles --create /etc/tmpfiles.d/firmware-path.conf
+  ```
 
 ## Setup Git
 
 - Set your global git config (same as in Windows):
-  ```
+  ```bash
   git config --global user.name "John Doe"
   git config --global user.email johndoe@example.com
   git config --global init.defaultBranch main
@@ -228,22 +378,22 @@ Reference [THREAD](https://github.com/dorssel/usbipd-win/issues/995).
 > advantage of WSL2's graphics support!
 
 - From WSL - launch Firefox:
-  ```
+  ```bash
   firefox
   ```
 - Using Firefox, [download the latest Linux 64-bit DEB installer](https://www.segger.com/downloads/jlink/).
 - Enter the following commands to install:
-  ```
+  ```bash
   sudo apt install ./snap/firefox/common/Downloads/<name of package>
   rm ./snap/firefox/common/Downloads/<name of package>
   ```
   For example, if latest is `V796m`:
-  ```
+  ```bash
   sudo apt install ./snap/firefox/common/Downloads/JLink_Linux_V796m_x86_64.deb
   rm ./snap/firefox/common/Downloads/JLink_Linux_V796m_x86_64.deb
   ```
 - Test:
-  ```
+  ```bash
   JLinkExe -nogui 1
   ```
   > Note that the GUI also will work!
@@ -251,7 +401,7 @@ Reference [THREAD](https://github.com/dorssel/usbipd-win/issues/995).
 ## Test VSCode
 
 - If you are using VSCode, enter `code .` from a WSL2 Terminal to understand how
-  to open VSCode from within WSL2.  Typically this command would be used after
+  to open VSCode from within WSL2. Typically this command would be used after
   `cd` to a repository root.
   > VSCode is not running in WSL2!  The VSCode GUI (frontend) is running in
   > Windows while the VSCode server runs in WSL2.  This is akin to establishing
@@ -267,14 +417,14 @@ Reference [THREAD](https://github.com/dorssel/usbipd-win/issues/995).
 ## Google Chrome
 
 - Install Google Chrome:
-  ```
+  ```bash
   cd ~
   wget https://dl.google.com/linux/direct/google-chrome-stable_current_amd64.deb
   sudo apt install ./google-chrome-stable_current_amd64.deb
   rm google-chrome-stable_current_amd64.deb
   ```
 - Test:
-  ```
+  ```bash
   google-chrome
   ```
 
@@ -347,3 +497,12 @@ Reference [THREAD](https://github.com/dorssel/usbipd-win/issues/995).
 - Author: Elias Calzado Carvajal
 - Update vhci-hcd kernel module loading method to use modules-load.d
 - Fix "ouput" typo
+
+## 2026-07-21
+
+- Author: Elias Calzado Carvajal
+- Bump Ubuntu version to 26.04
+- Remove mention of outdated kernel configs
+- Add section for auto-mounting USB Mass Media devices
+- Add section for setting up and troubleshooting Bluetooth
+- Minor formatting updates for block codes
