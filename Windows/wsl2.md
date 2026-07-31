@@ -78,6 +78,14 @@ wsl --install -d Ubuntu-26.04 --web-download
 
 [Installation Documentation](https://learn.microsoft.com/en-us/windows/wsl/install)
 
+> [!TIP]
+> The WSL2 kernel now ships through the Microsoft Store (it used to
+> come via Microsoft Update). Run `wsl --update` to update it. Note this only
+> refreshes the **WSL**, **Kernel**, and **WSLg** versions shown by `wsl --version`;
+> the other entries are Windows components that update independently.
+> Add `--pre-release` for pre-release builds, or `--web-download` to pull from
+> GitHub instead of the Store.
+
 ### About Distros
 
 See `wsl --list --online` for more info.
