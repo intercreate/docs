@@ -309,20 +309,20 @@ In our release for the WSL2 kernel, [linux-msft-wsl-6.18.35.2-ic](https://github
 
 It's still necessary to use a workaround to allow the WSL2 kernel to load firmware from within the distro's `/lib/firmware`.
 
-Begin by downloading the two files whose names begin with `linux-msft-wsl-6.18.35.2-ic` in our release and
+Begin by downloading the two files whose names begin with `linux-msft-wsl-6.18.35.2-ic-kernel` in our release and
 place them in `C:\Users\<your-username>\.wsl-kernel`.
 - The contents of the folder should look like:
   ```
   .wsl-kernel\
-  ├── linux-msft-wsl-6.18.35.2-ic
-  └── linux-msft-wsl-6.18.35.2-ic.vhdx
+  ├── linux-msft-wsl-6.18.35.2-ic-kernel
+  └── linux-msft-wsl-6.18.35.2-ic-kernel-modules.vhdx
   ```
 
 - Next open `C:\Users\<your-username>\.wslconfig` and enter the following:
   ```ini
   [wsl2]
-  kernel=C:\\Users\\<your-username>\\.wsl-kernel\\linux-msft-wsl-6.18.35.2-ic
-  kernelModules=C:\\Users\\<your-username>\\.wsl-kernel\\linux-msft-wsl-6.18.35.2-ic.vhdx
+  kernel=C:\\Users\\<your-username>\\.wsl-kernel\\linux-msft-wsl-6.18.35.2-ic-kernel
+  kernelModules=C:\\Users\\<your-username>\\.wsl-kernel\\linux-msft-wsl-6.18.35.2-ic-kernel-modules.vhdx
   ```
 
 Then, to fix the firmware loading issue we need to mount the firmware somewhere the kernel can see it, and
